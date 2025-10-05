@@ -1,0 +1,11 @@
+[run]
+branch = True
+source = app
+omit =
+    */__main__.py
+    */__init__.py  # optional, you can remove this if you want full tracking
+
+[report]
+show_missing = True
+precision = 2
+fail_under = 100

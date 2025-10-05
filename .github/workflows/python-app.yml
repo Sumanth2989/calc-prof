@@ -1,0 +1,38 @@
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout your repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov
+
+      # Step 4: Run tests with coverage
+      - name: Run tests with coverage
+        run: |
+          pytest --cov=app --cov-report=term-missing
+
+      # Step 5: Enforce 100% coverage
+      - name: Check coverage (enforce 100%)
+        run: |
+          coverage report --fail-under=100
